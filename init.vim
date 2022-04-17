@@ -13,6 +13,10 @@ syntax on
 "在状态栏显示正在输入的命令
 set showcmd
 
+" 列限 120
+set colorcolumn=120
+" hi ColorColumn ctermbg=lightcyan guibg=red
+
 "增量式搜索
 set incsearch
 "高亮搜索
@@ -55,6 +59,9 @@ set guifont="FiraCode\ Nerd\ Font.ttf"
 filetype plugin indent on
 let mapleader = "z"
 
+" search visual selected words
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>")
+
 nnoremap <silent><leader>1 <Cmd>BufferLineGoToBuffer 1<CR>
 nnoremap <silent><leader>2 <Cmd>BufferLineGoToBuffer 2<CR>
 nnoremap <silent><leader>3 <Cmd>BufferLineGoToBuffer 3<CR>
@@ -65,10 +72,11 @@ nnoremap <silent><leader>7 <Cmd>BufferLineGoToBuffer 7<CR>
 nnoremap <silent><leader>8 <Cmd>BufferLineGoToBuffer 8<CR>
 nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>
 
-nnoremap <leader>n :BufferLineMoveNext<CR>
-nnoremap <leader>p :BufferLineMovePrev<CR>
-nnoremap <leader>dr :BufferLineCloseRight<CR>
-nnoremap <leader>dl :BufferLineCloseLeft<CR>
+nnoremap <leader>n :bn<CR>
+nnoremap <leader>p :bp<CR>
+nnoremap <leader>d :bp<CR>:bd #<CR>
+nnoremap <leader>bn :BufferLineMoveNext<CR>
+nnoremap <leader>bp :BufferLineMovePrev<CR>
 
 nmap <leader>L :SymbolsOutline<CR>
 
@@ -81,11 +89,11 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
-" " Using Lua functions
-" nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
-" nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
-" nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
-" nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+" Using Lua functions
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
 filetype off
 
@@ -109,7 +117,14 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 
-" For LuaSnip users.
+Plug 'rafamadriz/friendly-snippets'
+
+" For vsnip users.
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+
+" @Deprecated (no-use) For LuaSnip users.
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
 
@@ -131,13 +146,16 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-media-files.nvim'
 
+" Plug 'liuchengxu/vim-which-key'
+
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
 lua require("lsp_config")
 
-" autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
-" autocmd BufWritePre *.go lua goimports(1000)
+" Auto go-format
+autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
+autocmd BufWritePre *.go lua goimports(1000)
 
 set completeopt=menu,menuone,noselect
 
@@ -168,3 +186,4 @@ endif
 " lua require("treesitter")
 
 colorscheme nightfox
+

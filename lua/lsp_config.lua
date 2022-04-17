@@ -2,9 +2,8 @@ local nvim_lsp = require('lspconfig')
 
 -- Setup lspconfig.
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
 -- local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -68,6 +67,9 @@ nvim_lsp.gopls.setup{
 	  },
 	},
 	on_attach = on_attach,
+	init_options = {
+	  usePlaceholders = true,
+	},
 }
 
   function goimports(timeoutms)
