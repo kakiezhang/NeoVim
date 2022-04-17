@@ -19,10 +19,10 @@ set incsearch
 set hlsearch
 
 "设置光标十字坐标，高亮当前行
-set cursorline
+" set cursorline
 
 "高亮当前行的背景颜色
-hi cursorline guibg=#333333
+" hi cursorline guibg=#333333
 
 "设置光标十字坐标，高亮当前列
 set cursorcolumn
@@ -32,7 +32,7 @@ hi CursorColumn guibg=#333333
 
 filetype plugin indent on
 let mapleader = "z"
-nnoremap <Leader>crs :set cursorline! cursorcolumn!<CR>
+" nnoremap <Leader>crs :set cursorline! cursorcolumn!<CR>
 
 nnoremap <silent><leader>1 <Cmd>BufferLineGoToBuffer 1<CR>
 nnoremap <silent><leader>2 <Cmd>BufferLineGoToBuffer 2<CR>
@@ -48,6 +48,11 @@ nnoremap <leader>n :BufferLineMoveNext<CR>
 nnoremap <leader>p :BufferLineMovePrev<CR>
 nnoremap <leader>dr :BufferLineCloseRight<CR>
 nnoremap <leader>dl :BufferLineCloseLeft<CR>
+
+nmap <leader>L :SymbolsOutline<CR>
+
+" Git blame
+map <Leader>gb :Git blame<CR>
 
 filetype off
 
@@ -66,8 +71,6 @@ set cmdheight=2
 "设置搜索时忽略大小写
 set ignorecase
 
-"突出显示当前行
-"set cursorline
 "设定 << 和 >> 命令移动时的宽度为 4
 set shiftwidth=4
 
@@ -82,8 +85,11 @@ let g:plug_window  = 'enew'
 let g:plug_pwindow = 'vertical rightbelow new'
 
 call plug#begin("~/.config/nvim/plugged")
+" lsp
 Plug 'neovim/nvim-lspconfig'
-" Plug 'mileszs/ack.vim'
+Plug 'onsails/lspkind-nvim'
+
+Plug 'mileszs/ack.vim'
 " Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-commentary'
 
@@ -94,13 +100,26 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 
-" For luasnip users.
+" For LuaSnip users.
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
 
 Plug 'EdenEast/nightfox.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/bufferline.nvim', { 'tag': '*' }
+Plug 'kyazdani42/nvim-tree.lua'
+
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'tpope/vim-fugitive'
+
+Plug 'simrat39/symbols-outline.nvim'
+
+Plug 'phaazon/hop.nvim'
+
+Plug 'rcarriga/nvim-notify'
+
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'nvim-telescope/telescope.nvim'
 
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
@@ -115,6 +134,24 @@ set completeopt=menu,menuone,noselect
 lua require("nvim_cmp_config")
 
 lua require("bufferline_config")
+
+" lua require('gitsigns').setup()
+lua require('gitsigns_conf')
+
+lua require("outline_config")
+
+lua require("hop_conf")
+
+lua require("nvim_notify_conf")
+
+lua require("nvim_tree_conf")
+
+" Ack other search methods
+if executable('rg')
+    let g:ackprg = 'rg -S --no-heading --vimgrep'
+elseif executable('ag')
+    let g:ackprg = 'ag --vimgrep'
+endif
 
 " lua require("treesitter")
 

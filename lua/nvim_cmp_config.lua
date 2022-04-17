@@ -1,5 +1,6 @@
 -- Setup nvim-cmp.
 local cmp = require'cmp'
+local lspkind = require'lspkind'
 
 require("luasnip/loaders/from_vscode").lazy_load()
 
@@ -87,19 +88,34 @@ cmp.setup({
       "s",
     }),
   }),
+  -- formatting = {
+  --   fields = { "kind", "abbr", "menu" },
+  --   format = function(entry, vim_item)
+  --     -- Kind icons
+  --     vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+  --     -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+  --     vim_item.menu = ({
+  --       luasnip = "[Snippet]",
+  --       buffer = "[Buffer]",
+  --       path = "[Path]",
+  --     })[entry.source.name]
+  --     return vim_item
+  --   end,
+  -- },
   formatting = {
-    fields = { "kind", "abbr", "menu" },
-    format = function(entry, vim_item)
-      -- Kind icons
-      vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-      -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
-      vim_item.menu = ({
-        luasnip = "[Snippet]",
-        buffer = "[Buffer]",
+    format = lspkind.cmp_format({
+      mode = "symbol_text",
+      menu = ({
+        nvim_lsp = "[LSP]",
+        luasnip = "[SPT]",
+        ultisnips = "[US]",
+        nvim_lua = "[Lua]",
         path = "[Path]",
-      })[entry.source.name]
-      return vim_item
-    end,
+        buffer = "[Buffer]",
+        emoji = "[Emoji]",
+	      omni = "[Omni]",
+      }),
+    }),
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
