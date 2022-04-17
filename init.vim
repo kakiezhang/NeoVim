@@ -19,20 +19,41 @@ set incsearch
 set hlsearch
 
 "设置光标十字坐标，高亮当前行
-" set cursorline
-
-"高亮当前行的背景颜色
-" hi cursorline guibg=#333333
-
+set cursorline
 "设置光标十字坐标，高亮当前列
 set cursorcolumn
 
+"高亮当前行的背景颜色
+hi cursorline guibg=#333333
 "高亮当前列的背景颜色
 hi CursorColumn guibg=#333333
 
+"制表符占4个空格
+set tabstop=4
+
+set backspace=indent,eol,start
+
+"我的状态行显示的内容（包括文件类型和解码）
+set statusline=%F%m%r%h%w\ %*%=\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l/%L,%c][%p%%]
+"总是显示状态行
+set laststatus=2
+"命令行（在状态行下）的高度，默认为1，这里是2
+set cmdheight=2
+
+"设置搜索时忽略大小写
+set ignorecase
+
+"设定 << 和 >> 命令移动时的宽度为 4
+set shiftwidth=4
+
+set wildignore+=*.o,.svn,.git,*.rbc,*.pyc,__pycache__
+
+set t_Co=256
+
+set guifont="FiraCode\ Nerd\ Font.ttf"
+
 filetype plugin indent on
 let mapleader = "z"
-" nnoremap <Leader>crs :set cursorline! cursorcolumn!<CR>
 
 nnoremap <silent><leader>1 <Cmd>BufferLineGoToBuffer 1<CR>
 nnoremap <silent><leader>2 <Cmd>BufferLineGoToBuffer 2<CR>
@@ -54,31 +75,19 @@ nmap <leader>L :SymbolsOutline<CR>
 " Git blame
 map <Leader>gb :Git blame<CR>
 
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" " Using Lua functions
+" nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+" nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+" nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+" nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+
 filetype off
-
-"制表符占4个空格
-set tabstop=4
-
-set backspace=indent,eol,start
-
-"我的状态行显示的内容（包括文件类型和解码）
-set statusline=%F%m%r%h%w\ %*%=\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l/%L,%c][%p%%]\ %{strftime(\"%Y/%m/%d\ -\ %H:%M\")}
-"总是显示状态行
-set laststatus=2
-"命令行（在状态行下）的高度，默认为1，这里是2
-set cmdheight=2
-
-"设置搜索时忽略大小写
-set ignorecase
-
-"设定 << 和 >> 命令移动时的宽度为 4
-set shiftwidth=4
-
-set wildignore+=*.o,.svn,.git,*.rbc,*.pyc,__pycache__
-
-set t_Co=256
-
-set guifont="FiraCode\ Nerd\ Font.ttf"
 
 let g:plug_shallow = 0
 let g:plug_window  = 'enew'
@@ -118,8 +127,9 @@ Plug 'phaazon/hop.nvim'
 
 Plug 'rcarriga/nvim-notify'
 
-" Plug 'nvim-lua/plenary.nvim'
-" Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-media-files.nvim'
 
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
@@ -145,6 +155,8 @@ lua require("hop_conf")
 lua require("nvim_notify_conf")
 
 lua require("nvim_tree_conf")
+
+lua require("telescope_conf")
 
 " Ack other search methods
 if executable('rg')
