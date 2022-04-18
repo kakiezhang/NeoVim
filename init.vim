@@ -149,7 +149,7 @@ Plug 'nvim-telescope/telescope-media-files.nvim'
 
 " Plug 'liuchengxu/vim-which-key'
 
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {'commit': '8ada8faf2fd5a74cc73090ec856fa88f34cd364b', 'do': ':TSUpdate'}
 call plug#end()
 
 lua require("lsp_config")
@@ -186,7 +186,7 @@ elseif executable('ag')
     let g:ackprg = 'ag --vimgrep'
 endif
 
-" lua require("treesitter")
+lua require("treesitter_conf")
 
 colorscheme nightfox
 
