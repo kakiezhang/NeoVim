@@ -12,7 +12,7 @@ local diagnostics = {
 	sources = { "nvim_diagnostic" },
 	sections = { "error", "warn" },
 	symbols = { error = " ", warn = " " },
-	colored = false,
+	colored = true,
 	update_in_insert = false,
 	always_visible = true,
 }
@@ -27,7 +27,8 @@ local diff = {
 local mode = {
 	"mode",
 	fmt = function(str)
-		return "-- " .. str .. " --"
+		-- return " " .. str .. " "
+		return str
 	end,
 }
 
@@ -72,9 +73,8 @@ lualine.setup({
 		always_divide_middle = true,
 	},
 	sections = {
-		lualine_a = { diagnostics },
-		lualine_b = { mode },
-		lualine_c = { 
+		lualine_a = { mode },
+		lualine_b = {
 			-- "filename" 
 			{
 			  "filename",
@@ -91,14 +91,14 @@ lualine.setup({
 			    unnamed = '[No Name]', -- Text to show for unnamed buffers.
 			  }
 			}
-
 		},
+		lualine_c = {},
 		-- lualine_x = { "encoding", "fileformat", "filetype" },
 		-- lualine_x = { diff, spaces, "encoding", filetype },
 		-- lualine_y = { location },
 		-- lualine_z = { progress },
 		lualine_x = { branch },
-		lualine_y = {"encoding", "filetype"},
+		lualine_y = {"encoding", "filetype", diagnostics },
 		lualine_z = { location },
 	},
 	inactive_sections = {
