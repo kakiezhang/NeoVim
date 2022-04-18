@@ -132,6 +132,7 @@ Plug 'EdenEast/nightfox.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/bufferline.nvim', { 'tag': '*' }
 Plug 'kyazdani42/nvim-tree.lua'
+Plug 'nvim-lualine/lualine.nvim'
 
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'tpope/vim-fugitive'
@@ -175,6 +176,8 @@ lua require("nvim_notify_conf")
 lua require("nvim_tree_conf")
 
 lua require("telescope_conf")
+
+lua require("lualine_conf")
 
 " Ack other search methods
 if executable('rg')
