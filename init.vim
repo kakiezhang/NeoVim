@@ -157,9 +157,9 @@ call plug#end()
 
 lua require("lsp_config")
 
-" Auto go-format
+" Auto format & import
 autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
-autocmd BufWritePre *.go lua go_org_imports(1000)
+autocmd BufWritePre *.go lua org_imports(1000)
 
 set completeopt=menu,menuone,noselect
 
