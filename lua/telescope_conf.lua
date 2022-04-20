@@ -82,8 +82,11 @@ telescope.setup {
   pickers = {
     -- Default configuration for builtin pickers goes here:
     -- picker_name = {
-    --   picker_config_key = value,
-    --   ...
+	  -- find_files = {
+    --     theme = "dropdown",
+    --     no_ignore = true,
+    --     -- find_command = "rg --no-hidden --no-ignore --files",
+    --   },
     -- }
     -- Now the picker_config_key will be applied every time you call this
     -- builtin picker
