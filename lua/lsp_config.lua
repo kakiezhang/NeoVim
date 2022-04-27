@@ -72,6 +72,16 @@ nvim_lsp.gopls.setup{
 	},
 }
 
+nvim_lsp.phpactor.setup{
+	cmd = {'phpactor', 'language-server'},
+	capabilities = capabilities,
+	filetypes = {'php'},
+	on_attach = on_attach,
+	init_options = {
+	  usePlaceholders = true,
+	},
+}
+
 function org_imports(wait_ms)
   local params = vim.lsp.util.make_range_params()
   params.context = {only = {"source.organizeImports"}}
