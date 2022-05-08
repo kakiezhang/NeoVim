@@ -158,8 +158,16 @@ call plug#end()
 lua require("lsp_config")
 
 " Auto format & import
-autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
-autocmd BufWritePre *.go lua org_imports(1000)
+augroup goGroup
+	autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
+	autocmd BufWritePre *.go lua go_org_imports(1000)
+augroup END
+
+augroup phpGroup
+    autocmd!
+    autocmd BufWritePost *.php command! -nargs=1 SilentPHP execute ':silent !'.<q-args> | execute ':redraw!'
+    autocmd BufWritePost *.php :SilentPHP php-cs-fixer fix %:p --rules=@Symfony --using-cache=no --no-interaction
+augroup END
 
 set completeopt=menu,menuone,noselect
 
