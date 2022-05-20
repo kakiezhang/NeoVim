@@ -98,7 +98,7 @@ lualine.setup({
 		-- lualine_y = { location },
 		-- lualine_z = { progress },
 		lualine_x = { branch },
-		lualine_y = {"encoding", "filetype", diagnostics },
+		lualine_y = {"encoding", "fileformat", "filetype", diagnostics },
 		lualine_z = { location },
 	},
 	inactive_sections = {
