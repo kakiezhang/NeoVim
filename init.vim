@@ -3,6 +3,8 @@ set nocompatible
 
 set background=dark
 
+set encoding=utf-8
+
 set noswapfile
 
 "显示行号
@@ -163,11 +165,11 @@ augroup goGroup
 	autocmd BufWritePre *.go lua go_org_imports(1000)
 augroup END
 
-augroup phpGroup
-    autocmd!
-    autocmd BufWritePost *.php command! -nargs=1 SilentPHP execute ':silent !'.<q-args> | execute ':redraw!'
-    autocmd BufWritePost *.php :SilentPHP php-cs-fixer fix %:p --rules=@Symfony --using-cache=no --no-interaction
-augroup END
+" augroup phpGroup
+"     autocmd!
+"     autocmd BufWritePost *.php command! -nargs=1 SilentPHP execute ':silent !'.<q-args> | execute ':redraw!'
+"     autocmd BufWritePost *.php :SilentPHP php-cs-fixer fix %:p --rules=@Symfony --using-cache=no --no-interaction
+" augroup END
 
 set completeopt=menu,menuone,noselect
 
@@ -198,6 +200,8 @@ elseif executable('ag')
 endif
 
 lua require("treesitter_conf")
+
+lua require("nightfox_conf")
 
 colorscheme nightfox
 
