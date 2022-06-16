@@ -16,8 +16,8 @@ local palettes = {
     -- red = "#c94f6d",
 
     -- sel is different types of selection colors.
-    sel0 = "#808080", -- Popup bg, visual selection bg
-    sel1 = "#808080", -- Popup sel bg, search bg
+    sel0 = "#004466", -- Popup bg, visual selection bg
+    sel1 = "#3399ff", -- Popup sel bg, search bg
   },
   dayfox = {
     -- Defining multiple shades is done by passing a table
