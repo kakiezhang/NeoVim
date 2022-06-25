@@ -46,6 +46,16 @@ local kind_icons = {
   Operator = "",
   TypeParameter = "",
 }
+
+
+local source_mapping = {
+	buffer = "[Buffer]",
+	nvim_lsp = "[LSP]",
+	nvim_lua = "[Lua]",
+	cmp_tabnine = "[TN]",
+	path = "[Path]",
+}
+
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
 cmp.setup({
@@ -139,11 +149,27 @@ cmp.setup({
         luasnip = "[LS]",
         ultisnips = "[US]",
         nvim_lua = "[Lua]",
+        cmp_tabnine = "[TN]",
         path = "[Path]",
         buffer = "[Buffer]",
         emoji = "[Emoji]",
 	      omni = "[Omni]",
       }),
+	  before = function(entry, vim_item)
+        vim_item.kind = lspkind.presets.default[vim_item.kind]
+
+        local menu = source_mapping[entry.source.name]
+        if entry.source.name == "cmp_tabnine" then
+          if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
+            menu = entry.completion_item.data.detail .. " " .. menu
+          end
+          vim_item.kind = ""
+        end
+
+        vim_item.menu = menu
+
+        return vim_item
+      end,
     }),
   },
   sources = cmp.config.sources({
@@ -154,6 +180,7 @@ cmp.setup({
     -- { name = 'snippy' }, -- For snippy users.
   }, {
     { name = 'buffer' },
+	{ name = 'cmp_tabnine' },
   })
 })
 
