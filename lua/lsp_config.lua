@@ -82,6 +82,12 @@ nvim_lsp.phpactor.setup{
 	},
 }
 
+nvim_lsp.pylsp.setup{
+	cmd = {'pylsp'},
+	filetypes = { 'python' },
+	on_attach = on_attach,
+}
+
 function go_org_imports(wait_ms)
   local params = vim.lsp.util.make_range_params()
   params.context = {only = {"source.organizeImports"}}
