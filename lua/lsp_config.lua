@@ -86,6 +86,7 @@ nvim_lsp.pylsp.setup{
 	cmd = {'pylsp'},
 	filetypes = { 'python' },
 	on_attach = on_attach,
+	single_file_support = { true },
 }
 
 function go_org_imports(wait_ms)
