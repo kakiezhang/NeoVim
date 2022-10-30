@@ -89,6 +89,17 @@ nvim_lsp.pylsp.setup{
 	single_file_support = { true },
 }
 
+nvim_lsp.rust_analyzer.setup{
+	cmd = {'rust-analyzer'},
+	filetypes = { 'rust' },
+	-- root_dir = root_pattern("Cargo.toml", "rust-project.json"),
+	on_attach = on_attach,
+	single_file_support = { true },
+	settings = {
+		["rust-analyzer"] = {}
+	}
+}
+
 function go_org_imports(wait_ms)
   local params = vim.lsp.util.make_range_params()
   params.context = {only = {"source.organizeImports"}}

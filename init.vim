@@ -107,6 +107,9 @@ let g:plug_window  = 'enew'
 let g:plug_pwindow = 'vertical rightbelow new'
 
 call plug#begin("~/.config/nvim/plugged")
+" which key
+Plug 'folke/which-key.nvim'
+
 " lsp
 Plug 'neovim/nvim-lspconfig'
 Plug 'onsails/lspkind-nvim'
