@@ -100,7 +100,7 @@ nvim_lsp.rust_analyzer.setup{
 	}
 }
 
-function go_org_imports(wait_ms)
+function original_imports(wait_ms)
   local params = vim.lsp.util.make_range_params()
   params.context = {only = {"source.organizeImports"}}
   local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, wait_ms)

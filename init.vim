@@ -166,7 +166,12 @@ lua require("lsp_config")
 " Auto format & import
 augroup goGroup
 	autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
-	autocmd BufWritePre *.go lua go_org_imports(1000)
+	autocmd BufWritePre *.go lua original_imports(150)
+augroup END
+
+augroup rsGroup
+	autocmd BufWritePre *.rs lua vim.lsp.buf.formatting()
+	autocmd BufWritePre *.rs lua original_imports(200)
 augroup END
 
 " augroup phpGroup
